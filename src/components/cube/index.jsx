@@ -1,7 +1,7 @@
 'use client';
 import React, { useRef, useState, Suspense } from 'react'
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useVideoTexture } from '@react-three/drei';
+import { OrbitControls, useTexture } from '@react-three/drei';
 import styles from './style.module.scss';
 import { useSpring, useScroll, useTransform } from 'framer-motion';
 import { motion } from 'framer-motion-3d';
@@ -57,17 +57,16 @@ export default function Index() {
 }
 
 /**
- * Cube avec support Vidéo.
+ * Cube avec support Image.
  */
 function Cube({ progress, setActiveOverlay }) {
     const mesh = useRef(null);
     const activeFaces = [4, 2, 3];
 
-    // Chargement robuste des textures vidéo
-    // Note : les chemins sont désormais à la racine du dossier public
-    const quiSuisJeVid = useVideoTexture("/Qui_Suis_Je_.mp4", { muted: true, loop: true, autoplay: true, crossOrigin: "Anonymous" });
-    const projetsVid = useVideoTexture("/Mes_Projets_.mp4", { muted: true, loop: true, autoplay: true, crossOrigin: "Anonymous" });
-    const stackVid = useVideoTexture("/Ma_Stack_Technique_.mp4", { muted: true, loop: true, autoplay: true, crossOrigin: "Anonymous" });
+    // Chargement des textures images
+    const quiSuisJeTex = useTexture("/qui-suis-je.png");
+    const projetsTex = useTexture("/mes-projets.png");
+    const stackTex = useTexture("/ma-stack-technique.png");
 
     const handleFaceClick = (e) => {
         e.stopPropagation();
@@ -98,15 +97,15 @@ function Cube({ progress, setActiveOverlay }) {
         >
             <boxGeometry args={[2.5, 2.5, 2.5]} />
 
-            {/* Faces avec couleurs simples et matériaux pour les vidéos */}
-            <meshStandardMaterial color="#222" attach="material-0" />
-            <meshStandardMaterial color="#222" attach="material-1" />
+            {/* Faces avec couleurs blanches et matériaux pour les images */}
+            <meshStandardMaterial color="#fff" attach="material-0" />
+            <meshStandardMaterial color="#fff" attach="material-1" />
 
-            <meshBasicMaterial map={projetsVid} attach="material-2" toneMapped={false} /> {/* Haut */}
-            <meshBasicMaterial map={stackVid} attach="material-3" toneMapped={false} />   {/* Bas */}
-            <meshBasicMaterial map={quiSuisJeVid} attach="material-4" toneMapped={false} /> {/* Avant */}
+            <meshBasicMaterial map={projetsTex} attach="material-2" toneMapped={false} /> {/* Haut */}
+            <meshBasicMaterial map={stackTex} attach="material-3" toneMapped={false} />   {/* Bas */}
+            <meshBasicMaterial map={quiSuisJeTex} attach="material-4" toneMapped={false} /> {/* Avant */}
 
-            <meshStandardMaterial color="#222" attach="material-5" />
+            <meshStandardMaterial color="#fff" attach="material-5" />
 
         </motion.mesh>
     )
