@@ -1,0 +1,257 @@
+/* ============================================
+   Stack Page – Folder Component Styles
+   ============================================ */
+
+.stackPage {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px 80px;
+    overflow-y: auto;
+    background: transparent;
+}
+
+.stackTitle {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #fff;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.stackSubtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 64px;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 160px);
+    gap: 4rem;
+    justify-content: center;
+    align-items: end;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* ============================================
+   Folder Wrapper
+   ============================================ */
+.folderWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+
+    &:hover,
+    &.open {
+        transform: translateY(-8px);
+    }
+}
+
+/* ============================================
+   Folder Tab (oreille)
+   ============================================ */
+.folderTab {
+    width: 60%;
+    height: 18px;
+    border-radius: 6px 6px 0 0;
+    margin-left: -100px;
+    /* décaler à gauche comme un vrai dossier */
+    align-self: flex-start;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+
+    /* petit arrondi de jonction avec le corps */
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: -14px;
+        width: 14px;
+        height: 14px;
+        background: inherit;
+        clip-path: polygon(0 100%, 0 0, 100% 100%);
+    }
+}
+
+/* ============================================
+   Folder Body
+   ============================================ */
+.folderBody {
+    position: relative;
+    width: 180px;
+    height: 130px;
+    border-radius: 3px 8px 8px 8px;
+    overflow: hidden;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.5),
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s ease;
+
+    .open & {
+        height: 230px;
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.6),
+            0 4px 16px rgba(0, 0, 0, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+}
+
+/* Reflet de lumière sur le dossier */
+.folderSheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* ============================================
+   Folder Front – lignes dossier fermé
+   ============================================ */
+.folderFront {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: opacity 0.2s ease;
+    z-index: 2;
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+.folderLines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 80%;
+
+    span {
+        display: block;
+        height: 3px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.25);
+
+        &:nth-child(1) {
+            width: 100%;
+        }
+
+        &:nth-child(2) {
+            width: 75%;
+        }
+
+        &:nth-child(3) {
+            width: 50%;
+        }
+    }
+}
+
+/* ============================================
+   Folder Content – révélé à l'ouverture
+   ============================================ */
+.folderContent {
+    position: absolute;
+    inset: 0;
+    padding: 14px 16px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+    z-index: 3;
+    overflow: hidden;
+
+    &.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.categoryTitle {
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.toolList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.toolItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+
+    .revealed & {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.toolDot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+}
+
+/* ============================================
+   Folder Label (sous le dossier)
+   ============================================ */
+.folderLabel {
+    margin-top: 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    transition: color 0.3s ease;
+    max-width: 180px;
+
+    .folderWrapper:hover & {
+        color: rgba(255, 255, 255, 0.9);
+    }
+}

@@ -6,6 +6,40 @@
         top: 0;
         height: 100vh;
         z-index: 1;
+
+        .scrollIndicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .chevronWrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .chevron {
+            width: 36px;
+            height: 18px;
+            opacity: 0;
+            animation: chevronFade 1.6s ease-in-out infinite;
+        }
+
+        .chevron1 {
+            animation-delay: 0s;
+        }
+
+        .chevron2 {
+            animation-delay: 0.3s;
+        }
     }
 
     /* Styles pour l'Overlay qui couvre tout l'écran */
@@ -15,22 +49,47 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.9); // Fond sombre semi-transparent
-        backdrop-filter: blur(15px); // Flou à l'arrière pour le look premium
-        z-index: 1000; // Très haut pour être au-dessus de tout
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(15px);
+        z-index: 1000;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         color: white;
         transition: all 0.3s ease;
+        overflow-y: auto;
+
+        &.projectsOverlay {
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 0;
+            background: #18181B;
+            backdrop-filter: none;
+        }
+
+        &.aboutOverlay {
+            justify-content: flex-start;
+            align-items: stretch;
+            padding: 0;
+            overflow-y: scroll;
+        }
+
+        &.stackOverlay {
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+        }
 
         .content {
             text-align: center;
+            width: 100%;
             max-width: 800px;
-            padding: 40px;
+            padding: 40px 40px 80px;
             animation: fadeIn 0.5s ease-out;
-            
+
             h1 {
                 font-size: 4rem;
                 margin-bottom: 20px;
@@ -41,15 +100,18 @@
 
             p {
                 font-size: 1.2rem;
-                line-height: 1.6;
-                opacity: 0.8;
+                line-height: 1.8;
+                opacity: 0.9;
+                white-space: pre-wrap;
+                margin-bottom: 20px;
+                text-align: left;
             }
         }
 
         .closeButton {
-            position: absolute;
-            top: 40px;
-            right: 40px;
+            position: fixed;
+            top: 30px;
+            right: 30px;
             font-size: 2rem;
             cursor: pointer;
             background: none;
@@ -74,6 +136,35 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes chevronFade {
+    0% {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    40% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    80% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(6px);
+    }
 }
