@@ -4,26 +4,26 @@ import Folder from './Folder';
 import styles from './style.module.scss';
 
 const STACK_DATA = [
-    {
-        category: 'Langages & Code',
-        tools: ['Python', 'SQL'],
-    },
-    {
-        category: 'Frameworks & Outils Dev',
-        tools: ['Next.js', 'React', 'Supabase', 'Git / GitHub', 'Vercel', 'VS Code', 'Cursor'],
-    },
-    {
-        category: 'IA & Automatisation',
-        tools: ['Claude (Anthropic)', 'Dust', 'Make'],
-    },
-    {
-        category: 'Data & Analyse',
-        tools: ['Google Sheets', 'Looker Studio'],
-    },
-    {
-        category: 'No-code & Design',
-        tools: ['Webflow', 'Antigravity', 'Notion', 'Airtable'],
-    },
+  {
+    category: 'Langages & Code',
+    tools: ['Python', 'SQL'],
+  },
+  {
+    category: 'Frameworks & Outils Dev',
+    tools: ['Next.js / React', 'Supabase', 'Git / GitHub / Vercel'],
+  },
+  {
+    category: 'IA & Automatisation',
+    tools: ['Claude, Gemini, Perplexity...', 'Dust', 'Make'],
+  },
+  {
+    category: 'Data & Analyse',
+    tools: ['Google Sheets', 'Looker Studio'],
+  },
+  {
+    category: 'No-code & Design',
+    tools: ['Webflow', 'Antigravity / Cursor', 'Notion / Airtable'],
+  },
 ];
 
 export default function Stack() {
@@ -37,8 +37,22 @@ export default function Stack() {
                     <Folder
                         key={item.category}
                         color="#1a3a6b"
-                        size={1}
-                        items={item.tools.map(t => <span key={t}>{t}</span>)}
+                        size={1.5}
+                        items={item.tools.map((tool, i) => (
+                            <div key={i} style={{
+                              background: 'white',
+                              color: 'black',
+                              fontFamily: 'inherit',
+                              fontWeight: '600',
+                              fontSize: '11px',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              whiteSpace: 'nowrap',
+                              textAlign: 'center',
+                            }}>
+                              {tool}
+                            </div>
+                          ))}
                     />
                 ))}
             </div>
