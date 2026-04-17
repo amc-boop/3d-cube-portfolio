@@ -21,7 +21,11 @@ const STACK_DATA = [
     },
     {
         category: 'IA & Automatisation',
-        tools: ['Claude, Gemini, Perplexity...', 'Dust', 'Make'],
+        tools:  [
+            { type: 'image', src: '/stack/Design-sans-titre-10-1.png' },
+            { type: 'image', src: '/stack/dust_tt_logo.jpeg' },
+            { type: 'image', src: '/stack/logos-ia.png' }
+        ],
     },
     {
         category: 'Data & Analyse',
@@ -45,7 +49,7 @@ export default function Stack() {
                         key={item.category}
                         color="#1a3a6b"
                         size={2}
-                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : ''}
+                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : ''}
                         items={item.tools.map((tool, i) => {
                             if (typeof tool === 'object' && tool.type === 'image') {
                                 return (
