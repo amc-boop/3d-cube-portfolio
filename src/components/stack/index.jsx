@@ -14,8 +14,9 @@ const STACK_DATA = [
     {
         category: 'Frameworks & Outils Dev',
         tools: [
-            { type: 'image', src: '/stack/Python_(programming_language)-Logo.wine.png' },
-            { type: 'image', src: '/stack/SQL.png.webp' }
+            { type: 'image', src: '/stack/Vercel-Logo.jpg' },
+            { type: 'image', src: '/stack/github.png' },
+            { type: 'image', src: '/stack/cursor-antigravity-vscode-.png' }
         ],
     },
     {
@@ -44,7 +45,7 @@ export default function Stack() {
                         key={item.category}
                         color="#1a3a6b"
                         size={2}
-                        label={index === 0 ? 'Code' : ''}
+                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : ''}
                         items={item.tools.map((tool, i) => {
                             if (typeof tool === 'object' && tool.type === 'image') {
                                 return (

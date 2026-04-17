@@ -107,7 +107,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label
                             fontSize: '13px',
                             pointerEvents: 'none',
                             userSelect: 'none',
-                            whiteSpace: 'nowrap',
+                            textAlign: 'center',
                             textShadow: '0 1px 4px rgba(0,0,0,0.6)',
                         }}>{label}</span>
                     )}
