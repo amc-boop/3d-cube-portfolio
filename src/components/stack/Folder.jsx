@@ -19,15 +19,11 @@ const darkenColor = (hex, percent) => {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
 };
 
-const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }) => {
-    const maxItems = 3;
-    const papers = items.slice(0, maxItems);
-    while (papers.length < maxItems) {
-        papers.push(null);
-    }
+const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label = '' }) => {
+    const papers = items.slice(0, 3);
 
     const [open, setOpen] = useState(false);
-    const [paperOffsets, setPaperOffsets] = useState(Array.from({ length: maxItems }, () => ({ x: 0, y: 0 })));
+    const [paperOffsets, setPaperOffsets] = useState(Array.from({ length: papers.length }, () => ({ x: 0, y: 0 })));
 
     const folderBackColor = darkenColor(color, 0.08);
     const paper1 = darkenColor('#ffffff', 0.1);
@@ -37,7 +33,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }) => 
     const handleClick = () => {
         setOpen(prev => !prev);
         if (open) {
-            setPaperOffsets(Array.from({ length: maxItems }, () => ({ x: 0, y: 0 })));
+            setPaperOffsets(Array.from({ length: papers.length }, () => ({ x: 0, y: 0 })));
         }
     };
 
@@ -84,20 +80,37 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }) => 
                             className={`paper paper-${i + 1}`}
                             onMouseMove={e => handlePaperMouseMove(e, i)}
                             onMouseLeave={e => handlePaperMouseLeave(e, i)}
-                            style={
-                                open
+                            style={{
+                                ...(open
                                     ? {
                                         '--magnet-x': `${paperOffsets[i]?.x || 0}px`,
                                         '--magnet-y': `${paperOffsets[i]?.y || 0}px`
                                     }
-                                    : {}
-                            }
+                                    : {}),
+                                ...(item?.props?.isTransparent ? { background: 'transparent', boxShadow: 'none' } : {})
+                            }}
                         >
                             {item}
                         </div>
                     ))}
                     <div className="folder__front"></div>
                     <div className="folder__front right"></div>
+                    {label && (
+                        <span style={{
+                            position: 'absolute',
+                            bottom: '30px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            zIndex: 4,
+                            color: 'white',
+                            fontWeight: '700',
+                            fontSize: '13px',
+                            pointerEvents: 'none',
+                            userSelect: 'none',
+                            whiteSpace: 'nowrap',
+                            textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                        }}>{label}</span>
+                    )}
                 </div>
             </div>
         </div>
