@@ -1,4 +1,5 @@
 'use client';
+import { useRef, useEffect, useState } from 'react';
 
 const paragraphs = [
     "Étudiant à Eugenia School, je construis mon parcours autour de trois piliers : la technologie, l'innovation et l'entrepreneuriat.",
@@ -7,13 +8,62 @@ const paragraphs = [
     "Je vous invite à consulter aussi mon profil LinkedIn pour en apprendre davantage sur moi. Me suivre, c'est voir mes compétences en action, pas seulement les lire."
 ];
 
-export default function ScrollRevealText() {
+function RevealParagraph({ text, scrollContainer }) {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) setVisible(true);
+            },
+            {
+                root: scrollContainer?.current ?? null,
+                threshold: 0.2,
+            }
+        );
+        const el = ref.current;
+        if (el) observer.observe(el);
+        return () => observer.disconnect();
+    }, [scrollContainer]);
+
+    const words = text.split(' ');
+
+    return (
+        <p ref={ref} style={{
+            margin: 0,
+            lineHeight: 1.9,
+            fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
+            fontWeight: 400,
+            color: 'white',
+            textAlign: 'left',
+            width: '100%',
+            maxWidth: 'none',
+        }}>
+            {words.map((word, i) => (
+                <span
+                    key={i}
+                    style={{
+                        display: 'inline-block',
+                        opacity: visible ? 1 : 0,
+                        transform: visible ? 'translateY(0px)' : 'translateY(16px)',
+                        transition: `opacity 0.5s ease ${i * 0.04}s, transform 0.5s ease ${i * 0.04}s`,
+                        marginRight: '0.28em',
+                    }}
+                >
+                    {word}
+                </span>
+            ))}
+        </p>
+    );
+}
+
+export default function ScrollRevealText({ scrollContainer }) {
     return (
         <div style={{
             display: 'flex',
-            alignItems: 'flex-start',
+            alignItems: 'stretch',
             width: '100%',
-            minHeight: '100%',
         }}>
             {/* Colonne gauche : image sticky (40%) */}
             <div style={{
@@ -22,6 +72,7 @@ export default function ScrollRevealText() {
                 top: 0,
                 height: '100vh',
                 overflow: 'hidden',
+                alignSelf: 'flex-start',
                 background: '#000',
                 flexShrink: 0,
             }}>
@@ -43,27 +94,20 @@ export default function ScrollRevealText() {
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14vh',
+                    gap: '7vh',
                     paddingTop: '12vh',
-                    paddingBottom: '30vh',
+                    paddingBottom: '5vh',
                     paddingLeft: '8%',
                     paddingRight: '8%',
                     boxSizing: 'border-box',
                     width: '100%',
                 }}>
                     {paragraphs.map((paragraph, pIndex) => (
-                        <p key={pIndex} style={{
-                            margin: 0,
-                            lineHeight: 1.9,
-                            fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
-                            fontWeight: 400,
-                            color: 'white',
-                            textAlign: 'left',
-                            width: '100%',
-                            maxWidth: 'none'
-                        }}>
-                            {paragraph}
-                        </p>
+                        <RevealParagraph
+                            key={pIndex}
+                            text={paragraph}
+                            scrollContainer={scrollContainer}
+                        />
                     ))}
                 </div>
             </div>
