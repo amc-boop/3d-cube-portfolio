@@ -29,11 +29,18 @@ const STACK_DATA = [
     },
     {
         category: 'Data & Analyse',
-        tools: ['Google Sheets', 'Looker Studio'],
+        tools: [
+            { type: 'image', src: '/stack/1676926985196.png' },
+            { type: 'image', src: '/stack/googlesheets_7443_logo_1631182141_uqivb.png.avif' }
+        ],
     },
     {
         category: 'No-code & Design',
-        tools: ['Webflow', 'Antigravity / Cursor', 'Notion / Airtable'],
+        tools: [
+            { type: 'image', src: '/stack/airtable.png' },
+            { type: 'image', src: '/stack/notion-logo-png_seeklogo-425508.png' },
+            { type: 'image', src: '/stack/webflow.png' }
+        ],
     },
 ];
 
@@ -49,7 +56,7 @@ export default function Stack() {
                         key={item.category}
                         color="#1a3a6b"
                         size={2}
-                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : ''}
+                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : index === 3 ? <span style={{textAlign:'center',lineHeight:1.3}}>Data &<br/>Analyse</span> : index === 4 ? <span style={{textAlign:'center',lineHeight:1.3}}><span style={{whiteSpace:'nowrap'}}>No-code</span><br/>{'& Design'}</span> : ''}
                         items={item.tools.map((tool, i) => {
                             if (typeof tool === 'object' && tool.type === 'image') {
                                 return (
