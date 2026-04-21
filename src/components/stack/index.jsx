@@ -76,7 +76,8 @@ export default function Stack() {
                                             style={{
                                                 maxWidth: '100%',
                                                 maxHeight: '100%',
-                                                objectFit: 'contain'
+                                                objectFit: 'contain',
+                                                borderRadius: '8px',
                                             }}
                                         />
                                     </div>
