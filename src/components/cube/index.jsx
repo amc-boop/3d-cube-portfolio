@@ -126,9 +126,7 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                         {activeOverlay === 'projects' ? (
                             <Projets scrollContainer={overlayRef} />
                         ) : activeOverlay === 'about' ? (
-                            <div className={styles.content}>
-                                <ScrollRevealText scrollContainer={overlayRef} />
-                            </div>
+                            <ScrollRevealText scrollContainer={overlayRef} />
                         ) : activeOverlay === 'stack' ? (
                             <Stack />
                         ) : (
