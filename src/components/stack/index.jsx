@@ -63,9 +63,6 @@ export default function Stack() {
                 />
             </div>
             <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                <h1 className={styles.stackTitle}>Ma Stack Technique</h1>
-                <p className={styles.stackSubtitle}>Survolez un dossier pour découvrir les outils</p>
-
                 <div className={styles.grid}>
                     {STACK_DATA.map((item, index) => (
                         <Folder

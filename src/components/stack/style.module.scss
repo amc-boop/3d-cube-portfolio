@@ -36,7 +36,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, auto);
-    gap: 3.5rem;
+    gap: 7rem;
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -59,10 +59,12 @@
 
 .grid>*:nth-child(4) {
     grid-column: 2 / 4;
+    margin-top: 4rem;
 }
 
 .grid>*:nth-child(5) {
     grid-column: 4 / 6;
+    margin-top: 4rem;
 }
 
 /* ============================================
