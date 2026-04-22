@@ -19,7 +19,7 @@ const darkenColor = (hex, percent) => {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
 };
 
-const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label = '' }) => {
+const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label = '', labelStyle = {} }) => {
     const papers = items.slice(0, 3);
 
     const [open, setOpen] = useState(false);
@@ -109,6 +109,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label
                             userSelect: 'none',
                             textAlign: 'center',
                             textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                            ...labelStyle,
                         }}>{label}</span>
                     )}
                 </div>

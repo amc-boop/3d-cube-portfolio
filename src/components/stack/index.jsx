@@ -2,6 +2,7 @@
 import React from 'react';
 import Folder from './Folder';
 import styles from './style.module.scss';
+import LightRays from './LightRays';
 
 const STACK_DATA = [
     {
@@ -46,61 +47,78 @@ const STACK_DATA = [
 
 export default function Stack() {
     return (
-        <div className={styles.stackPage}>
-            <h1 className={styles.stackTitle}>Ma Stack Technique</h1>
-            <p className={styles.stackSubtitle}>Survolez un dossier pour découvrir les outils</p>
+        <div className={styles.stackPage} style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+                <LightRays
+                    raysColor="#ffffff"
+                    raysOrigin="top-center"
+                    followMouse={true}
+                    raysSpeed={0.3}
+                    lightSpread={0.7}
+                    rayLength={1.5}
+                    fadeDistance={0.8}
+                    saturation={0.5}
+                    mouseInfluence={0.4}
+                    noiseAmount={0.05}
+                />
+            </div>
+            <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <h1 className={styles.stackTitle}>Ma Stack Technique</h1>
+                <p className={styles.stackSubtitle}>Survolez un dossier pour découvrir les outils</p>
 
-            <div className={styles.grid}>
-                {STACK_DATA.map((item, index) => (
-                    <Folder
-                        key={item.category}
-                        color="#1a3a6b"
-                        size={2}
-                        label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : index === 3 ? <span style={{textAlign:'center',lineHeight:1.3}}>Data &<br/>Analyse</span> : index === 4 ? <span style={{textAlign:'center',lineHeight:1.3}}><span style={{whiteSpace:'nowrap'}}>No-code</span><br/>{'& Design'}</span> : ''}
-                        items={item.tools.map((tool, i) => {
-                            if (typeof tool === 'object' && tool.type === 'image') {
+                <div className={styles.grid}>
+                    {STACK_DATA.map((item, index) => (
+                        <Folder
+                            key={item.category}
+                            color="#1a3a6b"
+                            size={2}
+                            label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : index === 3 ? <span style={{textAlign:'center',lineHeight:1.3}}>Data &<br/>Analyse</span> : index === 4 ? <span style={{textAlign:'center',lineHeight:1.3}}><span style={{whiteSpace:'nowrap'}}>No-code</span><br/>{'& Design'}</span> : ''}
+                            labelStyle={index === 4 ? { bottom: '10px' } : {}}
+                            items={item.tools.map((tool, i) => {
+                                if (typeof tool === 'object' && tool.type === 'image') {
+                                    return (
+                                        <div key={i} isTransparent={true} style={{
+                                            background: 'transparent',
+                                            width: '100%',
+                                            height: '45px',
+                                            padding: '4px',
+                                            borderRadius: '4px',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}>
+                                            <img
+                                                src={tool.src}
+                                                alt="logo"
+                                                style={{
+                                                    maxWidth: '100%',
+                                                    maxHeight: '100%',
+                                                    objectFit: 'contain',
+                                                    borderRadius: '8px',
+                                                }}
+                                            />
+                                        </div>
+                                    );
+                                }
                                 return (
-                                    <div key={i} isTransparent={true} style={{
-                                        background: 'transparent',
-                                        width: '100%',
-                                        height: '45px',
-                                        padding: '4px',
+                                    <div key={i} style={{
+                                        background: 'white',
+                                        color: 'black',
+                                        fontFamily: 'inherit',
+                                        fontWeight: '600',
+                                        fontSize: '11px',
+                                        padding: '4px 8px',
                                         borderRadius: '4px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
+                                        whiteSpace: 'nowrap',
+                                        textAlign: 'center',
                                     }}>
-                                        <img
-                                            src={tool.src}
-                                            alt="logo"
-                                            style={{
-                                                maxWidth: '100%',
-                                                maxHeight: '100%',
-                                                objectFit: 'contain',
-                                                borderRadius: '8px',
-                                            }}
-                                        />
+                                        {tool}
                                     </div>
                                 );
-                            }
-                            return (
-                                <div key={i} style={{
-                                    background: 'white',
-                                    color: 'black',
-                                    fontFamily: 'inherit',
-                                    fontWeight: '600',
-                                    fontSize: '11px',
-                                    padding: '4px 8px',
-                                    borderRadius: '4px',
-                                    whiteSpace: 'nowrap',
-                                    textAlign: 'center',
-                                }}>
-                                    {tool}
-                                </div>
-                            );
-                        })}
-                    />
-                ))}
+                            })}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -1,0 +1,21 @@
+.image-trail-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.image-trail-container img {
+  position: absolute;
+  width: 200px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform-origin: center center;
+}

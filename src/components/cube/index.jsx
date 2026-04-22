@@ -8,6 +8,18 @@ import { motion } from 'framer-motion-3d';
 import Projets from '../projets';
 import ScrollRevealText from '../scrollRevealText';
 import Stack from '../stack';
+import ImageTrail from '../imageTrail/ImageTrail';
+
+const TRAIL_IMAGES = [
+  '/cube/97d341f5-4321-4454-bd02-90120ced799b.JPG',
+  '/cube/IMG_0810.jpg',
+  '/cube/IMG_2543.JPG',
+  '/cube/IMG_4998.jpg',
+  '/cube/IMG_6364.jpg',
+  '/cube/IMG_9682.jpg',
+  '/cube/IMG_9708.jpg',
+  '/cube/IMG_9818.jpg',
+];
 
 /**
  * Composant principal avec Overlay et Canvas.
@@ -55,6 +67,7 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
     return (
         <div ref={container} className={styles.main}>
             <div className={styles.cube}>
+                <ImageTrail images={TRAIL_IMAGES} variant={3} />
                 <Canvas camera={{ position: [0, 0, 5] }}>
                     <OrbitControls enableZoom={false} enablePan={false} />
                     <ambientLight intensity={1} />
