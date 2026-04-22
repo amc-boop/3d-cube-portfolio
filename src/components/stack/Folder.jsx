@@ -102,7 +102,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label
                             left: '50%',
                             transform: 'translateX(-50%)',
                             zIndex: 4,
-                            color: 'white',
+                            color: '#F8F9FA',
                             fontWeight: '700',
                             fontSize: '13px',
                             pointerEvents: 'none',

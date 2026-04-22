@@ -70,7 +70,7 @@ export default function Stack() {
                     {STACK_DATA.map((item, index) => (
                         <Folder
                             key={item.category}
-                            color="#1a3a6b"
+                            color="#89BEE5"
                             size={2}
                             label={index === 0 ? 'Code' : index === 1 ? <span style={{textAlign:'center',lineHeight:1.3}}>Frameworks<br/>& Outils Dev</span> : index === 2 ? <span style={{textAlign:'center',lineHeight:1.3}}>IA &<br/>Automatisation</span> : index === 3 ? <span style={{textAlign:'center',lineHeight:1.3}}>Data &<br/>Analyse</span> : index === 4 ? <span style={{textAlign:'center',lineHeight:1.3}}><span style={{whiteSpace:'nowrap'}}>No-code</span><br/>{'& Design'}</span> : ''}
                             labelStyle={index === 4 ? { bottom: '10px' } : {}}

@@ -118,8 +118,8 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                             fontSize: '2rem',
                             cursor: 'pointer',
                             background: 'none',
-                            border: '2px solid white',
-                            color: 'white',
+                            border: `2px solid ${activeOverlay === 'about' || activeOverlay === 'projects' ? '#2D3748' : 'white'}`,
+                            color: activeOverlay === 'about' || activeOverlay === 'projects' ? '#2D3748' : 'white',
                             width: '50px',
                             height: '50px',
                             borderRadius: '50%',
@@ -128,8 +128,8 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                             justifyContent: 'center',
                             transition: 'all 0.2s ease',
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = 'black'; e.currentTarget.style.transform = 'rotate(90deg)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = 'none'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'rotate(0deg)'; }}
+                        onMouseEnter={e => { const isDark = activeOverlay === 'about' || activeOverlay === 'projects'; e.currentTarget.style.background = '#2D3748'; e.currentTarget.style.color = isDark ? 'white' : 'black'; e.currentTarget.style.transform = 'rotate(90deg)'; }}
+                        onMouseLeave={e => { const isDark = activeOverlay === 'about' || activeOverlay === 'projects'; e.currentTarget.style.background = 'none'; e.currentTarget.style.color = isDark ? '#2D3748' : 'white'; e.currentTarget.style.transform = 'rotate(0deg)'; }}
                     >✕</button>
 
                     <div

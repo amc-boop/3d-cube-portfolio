@@ -35,7 +35,7 @@ function RevealParagraph({ text, scrollContainer }) {
             lineHeight: 1.9,
             fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
             fontWeight: 400,
-            color: 'white',
+            color: '#2D3748',
             textAlign: 'left',
             width: '100%',
             maxWidth: 'none',
