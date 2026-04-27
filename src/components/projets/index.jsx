@@ -56,6 +56,8 @@ export default function Projets({ scrollContainer }) {
         offset: ['start start', 'end end']
     });
 
+    const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
+
     useEffect(() => {
         const lenis = new Lenis({
             wrapper: scrollContainer.current,
@@ -87,6 +89,7 @@ export default function Projets({ scrollContainer }) {
                         progress={scrollYProgress}
                         range={[start, 1]}
                         onOpen={() => setSelectedMedia(project)}
+                        scrollIndicatorOpacity={i === 0 ? scrollIndicatorOpacity : null}
                     />
                 );
             })}
@@ -123,12 +126,25 @@ export default function Projets({ scrollContainer }) {
     );
 }
 
-function Card({ title, description, src, type, color, i, progress, range, onOpen }) {
+function Card({ title, description, src, type, color, i, progress, range, onOpen, scrollIndicatorOpacity }) {
     const scale = useTransform(progress, range, [1, 0.8]);
     const rotate = useTransform(progress, range, [0, -5]);
 
     return (
         <div className={styles.cardContainer}>
+            {scrollIndicatorOpacity && (
+                <motion.div
+                    className={styles.scrollIndicator}
+                    style={{ opacity: scrollIndicatorOpacity }}
+                >
+                    <svg className={styles.chev} viewBox="0 0 24 12" fill="none">
+                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <svg className={`${styles.chev} ${styles.chev2}`} viewBox="0 0 24 12" fill="none">
+                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </motion.div>
+            )}
             <motion.div
                 style={{
                     backgroundColor: color,
