@@ -88,19 +88,19 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                             50%  { opacity: 1; transform: translateY(4px); }
                             100% { opacity: 0; transform: translateY(8px); }
                         }
-                        .chev { 
+                        .chev {
                             display: block;
-                            width: 36px;
-                            height: 18px;
+                            width: 64px;
+                            height: 32px;
                             animation: chevronBounce 1.4s ease-in-out infinite;
                         }
                         .chev2 { animation-delay: 0.25s; }
                     `}</style>
                     <svg className="chev" viewBox="0 0 24 12" fill="none">
-                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <svg className="chev chev2" viewBox="0 0 24 12" fill="none">
-                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        <path d="M2 2L12 10L22 2" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </motionDom.div>
             </div>
