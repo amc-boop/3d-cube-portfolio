@@ -162,6 +162,9 @@ function Cube({ progress, setActiveOverlay }) {
     const mesh = useRef(null);
     const activeFaces = [4, 2, 3];
 
+    const rotY = useTransform(progress, v => v + 0.45);
+    const rotX = useTransform(progress, v => v + 0.35);
+
     // Chargement des textures images
     const quiSuisJeTex = useTexture("/qui-suis-je.png");
     const projetsTex = useTexture("/mes-projets.png");
@@ -188,8 +191,8 @@ function Cube({ progress, setActiveOverlay }) {
     return (
         <motion.mesh
             ref={mesh}
-            rotation-y={progress}
-            rotation-x={progress}
+            rotation-y={rotY}
+            rotation-x={rotX}
             onClick={handleFaceClick}
             onPointerMove={handlePointerMove}
             onPointerOut={handlePointerOut}
