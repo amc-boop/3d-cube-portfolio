@@ -8,43 +8,43 @@ const projects = [
     {
         id: 1,
         title: "Hackathon Payfit",
-        description: "Hackathon de 1 semaine pour Payfit en équipe de 6 avec plus de 80 participants.",
+        description: `Hackathon PayFit x Eugenia School\nContexte — 1 semaine, 80 participants\nProblème — Scaler la production de contenu SEO par l'IA sans hallucination, dans le secteur ultra-réglementé des RH et de la paie.\nSolution — Un pipeline multi-agents automatisé avec validation humaine finale : détection d'opportunités SEO, vérification juridique via sources officielles (.gouv.fr), rédaction et contrôle qualité.\nDifférenciateurs — Publication automatique LinkedIn / Reddit, détection de prospects en difficulté via scraping LinkedIn → réponse IA envoyée sur Slack, interface front-end aux couleurs PayFit.\nStack — Make · Supabase · OpenAI · DALL-E · Apify · Gemini · Slack · Lovable`,
         src: "/projects/Hackathon payfit.pdf",
-        type: "pdf",
-        color: "#D8EBF6"
+    type: "pdf",
+    color: "#D8EBF6"
     },
-    {
-        id: 2,
+{
+    id: 2,
         title: "BDD Eugenia School",
-        description: "BDD avec cursor pour gamifier le recrutement de notre école.",
-        src: "/projects/Loom BDD.mp4",
-        type: "video",
-        color: "#C7E8FD"
-    },
-    {
-        id: 3,
+            description: "BDD avec cursor pour gamifier le recrutement de notre école.",
+                src: "/projects/Loom BDD.mp4",
+                    type: "video",
+                        color: "#C7E8FD"
+},
+{
+    id: 3,
         title: "Fairway",
-        description: "Création fictive d'une application de golf",
-        src: "/projects/FairWay-2.pdf",
-        type: "pdf",
-        color: "#B0E1FF"
-    },
-    {
-        id: 4,
+            description: "Création fictive d'une application de golf",
+                src: "/projects/FairWay-2.pdf",
+                    type: "pdf",
+                        color: "#B0E1FF"
+},
+{
+    id: 4,
         title: "Projet Looker",
-        description: "Dashboard analytique réalisé sur Looker",
-        src: "/projects/Projet Looker collectif.pdf",
-        type: "pdf",
-        color: "#98D8FF"
-    },
-    {
-        id: 5,
+            description: "Dashboard analytique réalisé sur Looker",
+                src: "/projects/Projet Looker collectif.pdf",
+                    type: "pdf",
+                        color: "#98D8FF"
+},
+{
+    id: 5,
         title: "Projet de Statistiques descriptives",
-        description: "Analyse Statistique & Régression Linéaire. Existe-t-il une relation linéaire entre le temps de révision et la note à l'examen?",
-        src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
-        type: "pdf",
-        color: "#8FCDFF"
-    }
+            description: "Analyse Statistique & Régression Linéaire. Existe-t-il une relation linéaire entre le temps de révision et la note à l'examen?",
+                src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
+                    type: "pdf",
+                        color: "#8FCDFF"
+}
 ];
 
 export default function Projets({ scrollContainer }) {
@@ -79,15 +79,18 @@ export default function Projets({ scrollContainer }) {
     return (
         <main ref={container} className={styles.main}>
             {projects.map((project, i) => {
-                const start = i * 0.2;
+                const sectionSize = 1 / Math.max(projects.length - 1, 1);
+                const start = i * sectionSize;
+                const end = Math.min(start + sectionSize, 1);
 
                 return (
                     <Card
                         key={project.id}
                         {...project}
                         i={i}
+                        total={projects.length}
                         progress={scrollYProgress}
-                        range={[start, 1]}
+                        range={[start, end]}
                         onOpen={() => setSelectedMedia(project)}
                         scrollIndicatorOpacity={i === 0 ? scrollIndicatorOpacity : null}
                     />
@@ -126,7 +129,7 @@ export default function Projets({ scrollContainer }) {
     );
 }
 
-function Card({ title, description, src, type, color, i, progress, range, onOpen, scrollIndicatorOpacity }) {
+function Card({ title, description, src, type, color, i, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
     const scale = useTransform(progress, range, [1, 0.8]);
     const rotate = useTransform(progress, range, [0, -5]);
 
@@ -176,6 +179,42 @@ function Card({ title, description, src, type, color, i, progress, range, onOpen
                     </div>
                 </div>
             </motion.div>
+
+            {nextProject && (
+                <motion.div
+                    initial={{ y: 80 }}
+                    animate={{ y: 0 }}
+                    transition={{ delay: 0.9, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                    style={{
+                        position: 'fixed',
+                        bottom: 0,
+                        left: '50%',
+                        marginLeft: '-500px',
+                        width: '1000px',
+                        height: '75px',
+                        borderRadius: '20px 20px 0 0',
+                        backgroundColor: nextProject.color,
+                        boxShadow: '0 -8px 30px rgba(0,0,0,0.15)',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        paddingTop: '16px',
+                        paddingLeft: '50px',
+                        pointerEvents: 'none',
+                        zIndex: 5,
+                        opacity: scrollIndicatorOpacity,
+                    }}
+                >
+                    <span style={{
+                        fontFamily: 'Arial, sans-serif',
+                        fontSize: '1rem',
+                        fontWeight: 'bold',
+                        color: '#2D3748',
+                        opacity: 0.6,
+                    }}>
+                        {nextProject.title}
+                    </span>
+                </motion.div>
+            )}
         </div>
     );
 }
