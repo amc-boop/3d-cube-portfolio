@@ -16,7 +16,7 @@ const projects = [
 {
     id: 2,
         title: "BDD Eugenia School",
-            description: "BDD avec cursor pour gamifier le recrutement de notre école.",
+            description: `Gamification du recrutement — Eugenia School x Albert School\nContexte — Projet réalisé avec Eugenia School pour moderniser le processus de recrutement de deux écoles.\nProblème — Les tests de personnalité classiques sont peu engageants et génèrent un fort taux d'abandon chez les candidats.\nSolution — Un test de personnalité gamifié qui oriente automatiquement le candidat vers Eugenia School ou Albert School selon son profil, connecté à une base de données en temps réel.\nDifficultés\n\nConcevoir une logique de scoring fiable et nuancée pour distinguer les deux profils\nRendre l'expérience fun sans sacrifier la pertinence des résultats\nSynchroniser les réponses et résultats en temps réel avec Supabase\n\nStack — Supabase · JavaScript · HTML/CSS`,
                 src: "/projects/Loom BDD.mp4",
                     type: "video",
                         color: "#C7E8FD"
@@ -24,7 +24,7 @@ const projects = [
 {
     id: 3,
         title: "Fairway",
-            description: "Création fictive d'une application de golf",
+            description: `FairWay — App de golf tout-en-un\nContexte — Projet entrepreneurial en équipe de 5 à Eugenia School : concevoir et pitcher une startup de A à Z.\nProblème — L'expérience golfeur est fragmentée et le coaching traditionnel trop coûteux pour les jeunes joueurs.\nSolution — App mobile centralisant réservation de parcours, coaching IA par analyse de swing, matching de partenaires et marketplace d'équipement.\nDifficultés — Se différencier face à Hole19 et Golfshot, convaincre un marché premium, et modéliser un business viable avec un freemium.\nStack — Figma · DeepSeek · Computer Vision · Mistral AI · Stripe · AWS`,
                 src: "/projects/FairWay-2.pdf",
                     type: "pdf",
                         color: "#B0E1FF"
@@ -32,7 +32,7 @@ const projects = [
 {
     id: 4,
         title: "Projet Looker",
-            description: "Dashboard analytique réalisé sur Looker",
+            description: `Dashboard Looker Studio — Analytics Marketing\nContexte — Création d'un dashboard de visualisation de données marketing sur Looker Studio à partir de données e-commerce réelles.\nProblème — Rendre lisibles et actionnables des données brutes GA4 pour piloter la performance marketing de A à Z.\nSolution — Un dashboard interactif avec filtre par période, couvrant : KPIs clés (CA, sessions, taux de conversion), funnel d'acquisition, tendances utilisateurs et performance par canal.\nDifficultés — Structurer une logique de lecture claire, modéliser le funnel de conversion (session → achat), et croiser les données canaux pour en tirer des insights pertinents.\nStack — Looker Studio · Google Analytics 4 · BigQuery`,
                 src: "/projects/Projet Looker collectif.pdf",
                     type: "pdf",
                         color: "#98D8FF"
@@ -40,7 +40,7 @@ const projects = [
 {
     id: 5,
         title: "Projet de Statistiques descriptives",
-            description: "Analyse Statistique & Régression Linéaire. Existe-t-il une relation linéaire entre le temps de révision et la note à l'examen?",
+            description: `Analyse Statistique & Régression Linéaire — Eugenia School\nContexte — Projet de statistiques descriptives sur l'impact des heures d'étude sur les notes d'examen, réalisé à partir d'un sondage de 60 étudiants.\nProblème — Déterminer s'il existe une relation linéaire mesurable entre le temps de travail hebdomadaire et la performance à l'examen.\nSolution — Analyse complète : statistiques descriptives, nuage de points, calcul de corrélation (r = 0,93) et modèle de régression linéaire (Ŷ = 1,08X + 5,52, R² = 87%).\nDifficultés — Calculer manuellement covariance, écart-type et coefficient de corrélation, interpréter les limites du modèle (corrélation ≠ causalité, variables non mesurées).\nStack — Excel · PowerPoint`,
                 src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
                     type: "pdf",
                         color: "#8FCDFF"
