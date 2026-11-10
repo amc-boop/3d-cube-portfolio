@@ -129,9 +129,13 @@ export default function Projets({ scrollContainer }) {
     );
 }
 
-function Card({ title, description, src, type, color, i, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
-    const scale = useTransform(progress, range, [1, 0.8]);
-    const rotate = useTransform(progress, range, [0, -5]);
+function Card({ title, description, src, type, color, i, total, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
+    // La dernière fiche garde sa taille d'origine (sa plage de scroll est vide : [1, 1])
+    const isLast = i === total - 1;
+    const scaleAnim = useTransform(progress, range, [1, 0.8]);
+    const rotateAnim = useTransform(progress, range, [0, -5]);
+    const scale = isLast ? 1 : scaleAnim;
+    const rotate = isLast ? 0 : rotateAnim;
 
     return (
         <div className={styles.cardContainer}>

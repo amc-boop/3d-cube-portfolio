@@ -1,7 +1,8 @@
 'use client';
-import React, { useRef, useState, Suspense } from 'react'
-import { Canvas } from '@react-three/fiber';
+import React, { useRef, useState, useMemo, Suspense } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useTexture } from '@react-three/drei';
+import { createFlowFace } from './flowFace';
 import styles from './style.module.scss';
 import { useSpring, useScroll, useTransform, motion as motionDom } from 'framer-motion';
 import { motion } from 'framer-motion-3d';
@@ -156,11 +157,12 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
 }
 
 /**
- * Cube avec support Image.
+ * Cube : chaque face cliquable reproduit l'effet FlowButton au survol.
  */
 function Cube({ progress, setActiveOverlay }) {
     const mesh = useRef(null);
     const activeFaces = [4, 2, 3];
+    const hovered = useRef(null);
 
     const rotY = useTransform(progress, v => v + 0.45);
     const rotX = useTransform(progress, v => v + 0.35);
@@ -169,6 +171,22 @@ function Cube({ progress, setActiveOverlay }) {
     const quiSuisJeTex = useTexture("/qui-suis-je.png");
     const projetsTex = useTexture("/mes-projets.png");
     const stackTex = useTexture("/ma-stack-technique.png");
+
+    // index de matériau -> { texture, draw, t }
+    const faces = useMemo(() => {
+        const make = (tex) => ({ ...createFlowFace(tex), t: 0 });
+        return { 2: make(projetsTex), 3: make(stackTex), 4: make(quiSuisJeTex) };
+    }, [projetsTex, stackTex, quiSuisJeTex]);
+
+    useFrame((_, delta) => {
+        Object.entries(faces).forEach(([index, face]) => {
+            const target = hovered.current === Number(index) ? 1 : 0;
+            if (face.t === target) return;
+            const step = delta / 0.8;
+            face.t = target > face.t ? Math.min(target, face.t + step) : Math.max(target, face.t - step);
+            face.draw(face.t);
+        });
+    });
 
     const handleFaceClick = (e) => {
         e.stopPropagation();
@@ -181,10 +199,13 @@ function Cube({ progress, setActiveOverlay }) {
 
     const handlePointerMove = (e) => {
         const faceIndex = e.face?.materialIndex;
-        document.body.style.cursor = activeFaces.includes(faceIndex) ? 'pointer' : 'default';
+        const isActive = activeFaces.includes(faceIndex);
+        hovered.current = isActive ? faceIndex : null;
+        document.body.style.cursor = isActive ? 'pointer' : 'default';
     }
 
     const handlePointerOut = () => {
+        hovered.current = null;
         document.body.style.cursor = 'default';
     }
 
@@ -203,12 +224,11 @@ function Cube({ progress, setActiveOverlay }) {
             <meshStandardMaterial color="#fff" attach="material-0" />
             <meshStandardMaterial color="#fff" attach="material-1" />
 
-            <meshBasicMaterial map={projetsTex} attach="material-2" toneMapped={false} /> {/* Haut */}
-            <meshBasicMaterial map={stackTex} attach="material-3" toneMapped={false} />   {/* Bas */}
-            <meshBasicMaterial map={quiSuisJeTex} attach="material-4" toneMapped={false} /> {/* Avant */}
+            <meshBasicMaterial map={faces[2].texture} attach="material-2" toneMapped={false} /> {/* Haut */}
+            <meshBasicMaterial map={faces[3].texture} attach="material-3" toneMapped={false} /> {/* Bas */}
+            <meshBasicMaterial map={faces[4].texture} attach="material-4" toneMapped={false} /> {/* Avant */}
 
             <meshStandardMaterial color="#fff" attach="material-5" />
-
         </motion.mesh>
     )
 }
