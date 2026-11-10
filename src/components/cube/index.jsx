@@ -70,7 +70,7 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
             <div className={styles.cube}>
                 <ImageTrail images={TRAIL_IMAGES} variant={3} />
                 <header className={styles.intro}>
-                    <h1>Alexandre McNamara</h1>
+                    <h1>Alexandre Mc Namara</h1>
                     <p>Business &amp; IA</p>
                 </header>
                 <p className={styles.hint}>Clique sur une face du cube</p>
