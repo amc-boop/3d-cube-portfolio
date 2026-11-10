@@ -69,6 +69,11 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
         <div ref={container} className={styles.main}>
             <div className={styles.cube}>
                 <ImageTrail images={TRAIL_IMAGES} variant={3} />
+                <header className={styles.intro}>
+                    <h1>Alexandre McNamara</h1>
+                    <p>Business &amp; IA</p>
+                </header>
+                <p className={styles.hint}>Clique sur une face du cube</p>
                 <Canvas camera={{ position: [0, 0, 5] }}>
                     <OrbitControls enableZoom={false} enablePan={false} />
                     <ambientLight intensity={1} />
@@ -165,7 +170,9 @@ function Cube({ progress, setActiveOverlay }) {
     const hovered = useRef(null);
 
     const rotY = useTransform(progress, v => v + 0.45);
-    const rotX = useTransform(progress, v => v + 0.35);
+    // Inclinaison qui oscille entre le dessus et le dessous du cube sans jamais
+    // dépasser 90° : la face « Qui suis-je ? » ne se retrouve plus à l'envers.
+    const rotX = useTransform(progress, v => 0.35 + Math.sin(v * (2 * Math.PI / 5)) * 1.0);
 
     // Chargement des textures images
     const quiSuisJeTex = useTexture("/qui-suis-je.png");
