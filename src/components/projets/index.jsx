@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
-import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
+import { useMotionValue, useTransform, motion, AnimatePresence } from 'framer-motion';
 import styles from './style.module.scss';
 
 const projects = [
@@ -50,17 +50,25 @@ const projects = [
 export default function Projets({ scrollContainer }) {
     const container = useRef(null);
     const [selectedMedia, setSelectedMedia] = useState(null);
-    const { scrollYProgress } = useScroll({
-        target: container,
-        container: scrollContainer,
-        offset: ['start start', 'end end']
-    });
+    // Progression du scroll (0 → 1) calculée directement depuis le conteneur de l'overlay.
+    // useScroll mesurait mal la position à l'ouverture de l'overlay, ce qui laissait
+    // la première fiche réduite et inclinée alors qu'aucune autre fiche ne la recouvrait.
+    const scrollYProgress = useMotionValue(0);
 
     const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
 
     useEffect(() => {
+        const wrapper = scrollContainer.current;
+        const updateProgress = () => {
+            const max = wrapper.scrollHeight - wrapper.clientHeight;
+            scrollYProgress.set(max > 0 ? Math.min(Math.max(wrapper.scrollTop / max, 0), 1) : 0);
+        };
+        updateProgress();
+        wrapper.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+
         const lenis = new Lenis({
-            wrapper: scrollContainer.current,
+            wrapper,
             content: container.current,
         });
 
@@ -72,9 +80,11 @@ export default function Projets({ scrollContainer }) {
         requestAnimationFrame(raf);
 
         return () => {
+            wrapper.removeEventListener('scroll', updateProgress);
+            window.removeEventListener('resize', updateProgress);
             lenis.destroy();
         };
-    }, [scrollContainer]);
+    }, [scrollContainer, scrollYProgress]);
 
     return (
         <main ref={container} className={styles.main}>
