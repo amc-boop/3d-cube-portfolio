@@ -18,6 +18,7 @@ const projects = [
         ],
         stack: ["Make", "Supabase", "OpenAI", "DALL-E", "Apify", "Gemini", "Slack", "Lovable"],
         src: "/projects/Hackathon payfit.pdf",
+        preview: "/projects/previews/Hackathon payfit.jpg",
         type: "pdf",
         color: "#D8EBF6"
     },
@@ -34,6 +35,7 @@ const projects = [
         ],
         stack: ["Supabase", "JavaScript", "HTML/CSS"],
         src: "/projects/Loom BDD.mp4",
+        preview: "/projects/previews/Loom BDD.jpg",
         type: "video",
         color: "#C7E8FD"
     },
@@ -50,6 +52,7 @@ const projects = [
         ],
         stack: ["Figma", "DeepSeek", "Computer Vision", "Mistral AI", "Stripe", "AWS"],
         src: "/projects/FairWay-2.pdf",
+        preview: "/projects/previews/FairWay-2.jpg",
         type: "pdf",
         color: "#B0E1FF"
     },
@@ -66,6 +69,7 @@ const projects = [
         ],
         stack: ["Looker Studio", "Google Analytics 4", "BigQuery"],
         src: "/projects/Projet Looker collectif.pdf",
+        preview: "/projects/previews/Projet Looker collectif.jpg",
         type: "pdf",
         color: "#98D8FF"
     },
@@ -82,6 +86,7 @@ const projects = [
         ],
         stack: ["Excel", "PowerPoint"],
         src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
+        preview: "/projects/previews/Presentation_Projet_Statistiques.pptx-2.jpg",
         type: "pdf",
         color: "#8FCDFF"
     }
@@ -179,7 +184,7 @@ export default function Projets({ scrollContainer }) {
     );
 }
 
-function Card({ title, subtitle, highlights = [], sections = [], stack = [], src, type, color, i, total, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
+function Card({ title, subtitle, highlights = [], sections = [], stack = [], src, preview, type, color, i, total, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
     // La dernière fiche garde sa taille d'origine (sa plage de scroll est vide : [1, 1])
     const isLast = i === total - 1;
     const scaleAnim = useTransform(progress, range, [1, 0.8]);
@@ -234,15 +239,8 @@ function Card({ title, subtitle, highlights = [], sections = [], stack = [], src
                         className={`${styles.mediaContainer} ${styles.clickable}`}
                         onClick={onOpen}
                     >
-                        {type === "pdf" && (
-                            <iframe src={src + "#toolbar=0"} className={styles.media} title={title} />
-                        )}
-                        {type === "video" && (
-                            <video src={src} className={styles.media} muted loop playsInline />
-                        )}
-                        {type === "image" && (
-                            <img src={src} className={styles.media} alt={title} />
-                        )}
+                        {/* Image d'aperçu légère : le PDF ou la vidéo complète ne se charge qu'à l'ouverture */}
+                        <img src={preview} className={styles.media} alt={title} loading="lazy" />
                         <div className={styles.overlay}>
                             <span>Cliquer pour agrandir</span>
                         </div>
