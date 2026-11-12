@@ -65,7 +65,7 @@ export default function ScrollRevealText({ scrollContainer }) {
             {/* Colonne gauche : image sticky (40%) */}
             <div className={styles.photoCol}>
                 <img
-                    src="/photo-de-moi.png"
+                    src="/photo-de-moi.jpg"
                     alt="Alexandre McNamara"
                     style={{
                         width: '100%',

@@ -123,6 +123,7 @@
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                object-position: center top;
                 border: none;
                 pointer-events: none; // Permet au clic de passer à travers l'iframe vers le conteneur
             }
