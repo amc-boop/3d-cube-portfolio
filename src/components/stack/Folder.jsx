@@ -96,7 +96,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '', label
                     <div className="folder__front"></div>
                     <div className="folder__front right"></div>
                     {label && (
-                        <span style={{
+                        <span className="folder__label" style={{
                             position: 'absolute',
                             bottom: '30px',
                             left: '50%',

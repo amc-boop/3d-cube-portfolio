@@ -155,6 +155,33 @@ export default function ScrollRevealText({ scrollContainer }) {
                             </svg>
                             Gmail
                         </a>
+
+                        <a
+                            href="/cv/CV-Alexandre-Mc-Namara.pdf"
+                            download
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.5em',
+                                padding: '0.6em 1.1em',
+                                borderRadius: '999px',
+                                background: '#2D3748',
+                                color: '#F8F9FA',
+                                textDecoration: 'none',
+                                fontWeight: 600,
+                                fontSize: 'clamp(0.9rem, 1.4vw, 1.1rem)',
+                                transition: 'opacity 0.2s ease',
+                            }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M12 3v12" />
+                                <path d="M7 10l5 5 5-5" />
+                                <path d="M5 21h14" />
+                            </svg>
+                            Télécharger mon CV
+                        </a>
                     </div>
                 </div>
             </div>
