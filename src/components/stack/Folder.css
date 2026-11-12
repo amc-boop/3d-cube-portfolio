@@ -16,7 +16,7 @@
 }
 
 .folder:not(.folder--click):hover .paper {
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, -55%);
 }
 
 .folder:not(.folder--click):hover .folder__front {
@@ -119,4 +119,19 @@
     border-radius: 5px 10px 10px 10px;
     transform-origin: bottom;
     transition: all 0.3s ease-in-out;
+}
+/* Dossier fermé : le haut des logos dépasse un peu pour donner envie de cliquer */
+.folder:not(.open) .paper {
+    transform: translate(-50%, -40%);
+}
+
+/* Dossier ouvert : le nom descend dans le bas du dossier pour ne pas cacher les logos */
+.folder__label {
+    transition: bottom 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+.folder.open .folder__label {
+    bottom: 6px !important;
+    font-size: 10px !important;
+    line-height: 1.15 !important;
 }
