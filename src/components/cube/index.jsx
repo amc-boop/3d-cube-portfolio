@@ -123,7 +123,8 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                             zIndex: 2000,
                             fontSize: '2rem',
                             cursor: 'pointer',
-                            background: 'none',
+                            // Fond clair sur les pages claires : le bouton reste lisible quand il passe sur la photo ou le texte (mobile)
+                            background: activeOverlay === 'about' || activeOverlay === 'projects' ? 'rgba(248, 249, 250, 0.85)' : 'none',
                             border: `2px solid ${activeOverlay === 'about' || activeOverlay === 'projects' ? '#2D3748' : 'white'}`,
                             color: activeOverlay === 'about' || activeOverlay === 'projects' ? '#2D3748' : 'white',
                             width: '50px',
@@ -135,7 +136,7 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
                             transition: 'all 0.2s ease',
                         }}
                         onMouseEnter={e => { const isDark = activeOverlay === 'about' || activeOverlay === 'projects'; e.currentTarget.style.background = '#2D3748'; e.currentTarget.style.color = isDark ? 'white' : 'black'; e.currentTarget.style.transform = 'rotate(90deg)'; }}
-                        onMouseLeave={e => { const isDark = activeOverlay === 'about' || activeOverlay === 'projects'; e.currentTarget.style.background = 'none'; e.currentTarget.style.color = isDark ? '#2D3748' : 'white'; e.currentTarget.style.transform = 'rotate(0deg)'; }}
+                        onMouseLeave={e => { const isDark = activeOverlay === 'about' || activeOverlay === 'projects'; e.currentTarget.style.background = isDark ? 'rgba(248, 249, 250, 0.85)' : 'none'; e.currentTarget.style.color = isDark ? '#2D3748' : 'white'; e.currentTarget.style.transform = 'rotate(0deg)'; }}
                     >✕</button>
 
                     <div
