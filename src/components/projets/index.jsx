@@ -4,47 +4,87 @@ import Lenis from 'lenis';
 import { useMotionValue, useTransform, motion, AnimatePresence } from 'framer-motion';
 import styles from './style.module.scss';
 
+// Contenu des fiches : uniquement les informations déjà présentes, réorganisées par rubrique
 const projects = [
     {
         id: 1,
         title: "Hackathon Payfit",
-        description: `Hackathon PayFit x Eugenia School\nContexte — 1 semaine, 80 participants\nProblème — Scaler la production de contenu SEO par l'IA sans hallucination, dans le secteur ultra-réglementé des RH et de la paie.\nSolution — Un pipeline multi-agents automatisé avec validation humaine finale : détection d'opportunités SEO, vérification juridique via sources officielles (.gouv.fr), rédaction et contrôle qualité.\nDifférenciateurs — Publication automatique LinkedIn / Reddit, détection de prospects en difficulté via scraping LinkedIn → réponse IA envoyée sur Slack, interface front-end aux couleurs PayFit.\nStack — Make · Supabase · OpenAI · DALL-E · Apify · Gemini · Slack · Lovable`,
+        subtitle: "Hackathon PayFit x Eugenia School",
+        highlights: ["1 semaine", "80 participants"],
+        sections: [
+            { label: "Problème", text: "Produire du contenu SEO à grande échelle avec l'IA, sans hallucinations, dans un secteur très réglementé : les RH et la paie." },
+            { label: "Solution", text: "Un pipeline multi-agents automatisé, avec une validation humaine à la fin. Il repère les opportunités SEO, vérifie les points juridiques sur les sources officielles (.gouv.fr), rédige, puis contrôle la qualité." },
+            { label: "Points forts", text: "Publication automatique sur LinkedIn et Reddit. Repérage de prospects en difficulté par scraping LinkedIn, avec une réponse générée par l'IA envoyée sur Slack. Interface front-end aux couleurs de PayFit." },
+        ],
+        stack: ["Make", "Supabase", "OpenAI", "DALL-E", "Apify", "Gemini", "Slack", "Lovable"],
         src: "/projects/Hackathon payfit.pdf",
-    type: "pdf",
-    color: "#D8EBF6"
+        type: "pdf",
+        color: "#D8EBF6"
     },
-{
-    id: 2,
+    {
+        id: 2,
         title: "BDD Eugenia School",
-            description: `Gamification du recrutement — Eugenia School x Albert School\nContexte — Projet réalisé avec Eugenia School pour moderniser le processus de recrutement de deux écoles.\nProblème — Les tests de personnalité classiques sont peu engageants et génèrent un fort taux d'abandon chez les candidats.\nSolution — Un test de personnalité gamifié qui oriente automatiquement le candidat vers Eugenia School ou Albert School selon son profil, connecté à une base de données en temps réel.\nDifficultés\n\nConcevoir une logique de scoring fiable et nuancée pour distinguer les deux profils\nRendre l'expérience fun sans sacrifier la pertinence des résultats\nSynchroniser les réponses et résultats en temps réel avec Supabase\n\nStack — Supabase · JavaScript · HTML/CSS`,
-                src: "/projects/Loom BDD.mp4",
-                    type: "video",
-                        color: "#C7E8FD"
-},
-{
-    id: 3,
+        subtitle: "Gamification du recrutement, Eugenia School x Albert School",
+        highlights: ["2 écoles"],
+        sections: [
+            { label: "Contexte", text: "Projet mené avec Eugenia School pour moderniser le processus de recrutement de deux écoles." },
+            { label: "Problème", text: "Les tests de personnalité classiques sont peu engageants, et beaucoup de candidats abandonnent en cours de route." },
+            { label: "Solution", text: "Un test de personnalité gamifié qui oriente automatiquement le candidat vers Eugenia School ou Albert School selon son profil, relié à une base de données en temps réel." },
+            { label: "Difficultés", text: "Concevoir un scoring fiable et assez nuancé pour distinguer les deux profils, garder une expérience fun sans perdre en pertinence, et synchroniser les réponses et les résultats en temps réel avec Supabase." },
+        ],
+        stack: ["Supabase", "JavaScript", "HTML/CSS"],
+        src: "/projects/Loom BDD.mp4",
+        type: "video",
+        color: "#C7E8FD"
+    },
+    {
+        id: 3,
         title: "Fairway",
-            description: `FairWay — App de golf tout-en-un\nContexte — Projet entrepreneurial en équipe de 5 à Eugenia School : concevoir et pitcher une startup de A à Z.\nProblème — L'expérience golfeur est fragmentée et le coaching traditionnel trop coûteux pour les jeunes joueurs.\nSolution — App mobile centralisant réservation de parcours, coaching IA par analyse de swing, matching de partenaires et marketplace d'équipement.\nDifficultés — Se différencier face à Hole19 et Golfshot, convaincre un marché premium, et modéliser un business viable avec un freemium.\nStack — Figma · DeepSeek · Computer Vision · Mistral AI · Stripe · AWS`,
-                src: "/projects/FairWay-2.pdf",
-                    type: "pdf",
-                        color: "#B0E1FF"
-},
-{
-    id: 4,
+        subtitle: "FairWay, l'app de golf tout-en-un",
+        highlights: ["Équipe de 5"],
+        sections: [
+            { label: "Contexte", text: "Projet entrepreneurial à Eugenia School : concevoir et pitcher une startup de A à Z." },
+            { label: "Problème", text: "L'expérience du golfeur est éclatée entre plusieurs services, et le coaching traditionnel coûte trop cher pour les jeunes joueurs." },
+            { label: "Solution", text: "Une app mobile qui réunit la réservation de parcours, un coaching IA basé sur l'analyse du swing, la mise en relation entre partenaires de jeu et une marketplace d'équipement." },
+            { label: "Difficultés", text: "Se démarquer face à Hole19 et Golfshot, convaincre un marché premium et construire un modèle freemium viable." },
+        ],
+        stack: ["Figma", "DeepSeek", "Computer Vision", "Mistral AI", "Stripe", "AWS"],
+        src: "/projects/FairWay-2.pdf",
+        type: "pdf",
+        color: "#B0E1FF"
+    },
+    {
+        id: 4,
         title: "Projet Looker",
-            description: `Dashboard Looker Studio — Analytics Marketing\nContexte — Création d'un dashboard de visualisation de données marketing sur Looker Studio à partir de données e-commerce réelles.\nProblème — Rendre lisibles et actionnables des données brutes GA4 pour piloter la performance marketing de A à Z.\nSolution — Un dashboard interactif avec filtre par période, couvrant : KPIs clés (CA, sessions, taux de conversion), funnel d'acquisition, tendances utilisateurs et performance par canal.\nDifficultés — Structurer une logique de lecture claire, modéliser le funnel de conversion (session → achat), et croiser les données canaux pour en tirer des insights pertinents.\nStack — Looker Studio · Google Analytics 4 · BigQuery`,
-                src: "/projects/Projet Looker collectif.pdf",
-                    type: "pdf",
-                        color: "#98D8FF"
-},
-{
-    id: 5,
+        subtitle: "Dashboard Looker Studio, analytics marketing",
+        highlights: [],
+        sections: [
+            { label: "Contexte", text: "Création d'un dashboard marketing sur Looker Studio à partir de vraies données e-commerce." },
+            { label: "Problème", text: "Rendre les données brutes de GA4 lisibles et exploitables pour piloter la performance marketing de bout en bout." },
+            { label: "Solution", text: "Un dashboard interactif filtrable par période, avec les KPIs clés (CA, sessions, taux de conversion), le funnel d'acquisition, les tendances utilisateurs et la performance par canal." },
+            { label: "Difficultés", text: "Trouver un ordre de lecture clair, modéliser le funnel de conversion (de la session à l'achat) et croiser les données par canal pour en tirer des insights pertinents." },
+        ],
+        stack: ["Looker Studio", "Google Analytics 4", "BigQuery"],
+        src: "/projects/Projet Looker collectif.pdf",
+        type: "pdf",
+        color: "#98D8FF"
+    },
+    {
+        id: 5,
         title: "Projet de Statistiques descriptives",
-            description: `Analyse Statistique & Régression Linéaire — Eugenia School\nContexte — Projet de statistiques descriptives sur l'impact des heures d'étude sur les notes d'examen, réalisé à partir d'un sondage de 60 étudiants.\nProblème — Déterminer s'il existe une relation linéaire mesurable entre le temps de travail hebdomadaire et la performance à l'examen.\nSolution — Analyse complète : statistiques descriptives, nuage de points, calcul de corrélation (r = 0,93) et modèle de régression linéaire (Ŷ = 1,08X + 5,52, R² = 87%).\nDifficultés — Calculer manuellement covariance, écart-type et coefficient de corrélation, interpréter les limites du modèle (corrélation ≠ causalité, variables non mesurées).\nStack — Excel · PowerPoint`,
-                src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
-                    type: "pdf",
-                        color: "#8FCDFF"
-}
+        subtitle: "Analyse statistique et régression linéaire, Eugenia School",
+        highlights: ["60 étudiants", "r = 0,93", "R² = 87 %"],
+        sections: [
+            { label: "Contexte", text: "Étude de l'impact des heures de travail sur les notes d'examen, à partir d'un sondage auprès de 60 étudiants." },
+            { label: "Problème", text: "Savoir s'il existe une relation linéaire mesurable entre le temps de travail par semaine et la note à l'examen." },
+            { label: "Démarche", text: "Statistiques descriptives, nuage de points, calcul de la corrélation (r = 0,93) et modèle de régression linéaire (Ŷ = 1,08X + 5,52, R² = 87 %)." },
+            { label: "Difficultés", text: "Calculer à la main la covariance, l'écart-type et le coefficient de corrélation, puis expliquer les limites du modèle : une corrélation n'est pas une causalité, et certaines variables ne sont pas mesurées." },
+        ],
+        stack: ["Excel", "PowerPoint"],
+        src: "/projects/Presentation_Projet_Statistiques.pptx-2.pdf",
+        type: "pdf",
+        color: "#8FCDFF"
+    }
 ];
 
 export default function Projets({ scrollContainer }) {
@@ -139,7 +179,7 @@ export default function Projets({ scrollContainer }) {
     );
 }
 
-function Card({ title, description, src, type, color, i, total, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
+function Card({ title, subtitle, highlights = [], sections = [], stack = [], src, type, color, i, total, progress, range, onOpen, scrollIndicatorOpacity, nextProject }) {
     // La dernière fiche garde sa taille d'origine (sa plage de scroll est vide : [1, 1])
     const isLast = i === total - 1;
     const scaleAnim = useTransform(progress, range, [1, 0.8]);
@@ -173,7 +213,23 @@ function Card({ title, description, src, type, color, i, total, progress, range,
             >
                 <h2>{title}</h2>
                 <div className={styles.content}>
-                    <p>{description}</p>
+                    <div className={styles.details}>
+                        <p className={styles.subtitle}>{subtitle}</p>
+                        {highlights.length > 0 && (
+                            <div className={styles.highlights}>
+                                {highlights.map((h) => <span key={h}>{h}</span>)}
+                            </div>
+                        )}
+                        {sections.map((section) => (
+                            <div key={section.label} className={styles.section}>
+                                <h3>{section.label}</h3>
+                                <p>{section.text}</p>
+                            </div>
+                        ))}
+                        <ul className={styles.stack}>
+                            {stack.map((tool) => <li key={tool}>{tool}</li>)}
+                        </ul>
+                    </div>
                     <div
                         className={`${styles.mediaContainer} ${styles.clickable}`}
                         onClick={onOpen}
