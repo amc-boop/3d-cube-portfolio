@@ -1,5 +1,6 @@
 'use client';
 import { useRef, useEffect, useState } from 'react';
+import styles from './style.module.scss';
 
 const paragraphs = [
     "Étudiant à Eugenia School, je construis mon parcours autour de trois piliers : la technologie, l'innovation et l'entrepreneuriat.",
@@ -60,22 +61,9 @@ function RevealParagraph({ text, scrollContainer }) {
 
 export default function ScrollRevealText({ scrollContainer }) {
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'stretch',
-            width: '100%',
-        }}>
+        <div className={styles.layout}>
             {/* Colonne gauche : image sticky (40%) */}
-            <div style={{
-                flex: '0 0 40%',
-                position: 'sticky',
-                top: 0,
-                height: '100vh',
-                overflow: 'hidden',
-                alignSelf: 'flex-start',
-                background: '#000',
-                flexShrink: 0,
-            }}>
+            <div className={styles.photoCol}>
                 <img
                     src="/photo-de-moi.png"
                     alt="Alexandre McNamara"
@@ -90,18 +78,8 @@ export default function ScrollRevealText({ scrollContainer }) {
             </div>
 
             {/* Colonne droite : texte scrollable (60%) */}
-            <div style={{ flex: '0 0 60%', display: 'flex', alignItems: 'center' }}>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '7vh',
-                    paddingTop: '12vh',
-                    paddingBottom: '5vh',
-                    paddingLeft: '8%',
-                    paddingRight: '8%',
-                    boxSizing: 'border-box',
-                    width: '100%',
-                }}>
+            <div className={styles.textCol}>
+                <div className={styles.textInner}>
                     {paragraphs.map((paragraph, pIndex) => (
                         <RevealParagraph
                             key={pIndex}
@@ -110,7 +88,7 @@ export default function ScrollRevealText({ scrollContainer }) {
                         />
                     ))}
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginTop: '1vh' }}>
+                    <div className={styles.links}>
                         <a
                             href="https://www.linkedin.com/in/alexandre-mcnamara"
                             target="_blank"
