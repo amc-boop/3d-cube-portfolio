@@ -167,7 +167,6 @@ Je vous invite à consulter aussi mon profil linkedin pour en apprendre davantag
  */
 function Cube({ progress, setActiveOverlay }) {
     const mesh = useRef(null);
-    const activeFaces = [4, 2, 3];
     const hovered = useRef(null);
 
     const rotY = useTransform(progress, v => v + 0.45);
@@ -180,10 +179,24 @@ function Cube({ progress, setActiveOverlay }) {
     const projetsTex = useTexture("/mes-projets.png");
     const stackTex = useTexture("/ma-stack-technique.png");
 
-    // index de matériau -> { texture, draw, t }
+    // index de matériau -> { texture, draw, t, overlay }
+    // Chaque contenu occupe deux faces opposées : deux faces voisines ne sont jamais identiques.
     const faces = useMemo(() => {
-        const make = (tex) => ({ ...createFlowFace(tex), t: 0 });
-        return { 2: make(projetsTex), 3: make(stackTex), 4: make(quiSuisJeTex) };
+        const make = (tex, overlay, rotation = 0) => {
+            const face = { ...createFlowFace(tex), t: 0, overlay };
+            // L'image « Ma stack technique » est en orientation paysage : on la redresse sur les côtés.
+            face.texture.center.set(0.5, 0.5);
+            face.texture.rotation = rotation;
+            return face;
+        };
+        return {
+            0: make(stackTex, 'stack', Math.PI / 2),       // Droite
+            1: make(stackTex, 'stack', Math.PI / 2),       // Gauche
+            2: make(projetsTex, 'projects'),  // Haut
+            3: make(projetsTex, 'projects'),  // Bas
+            4: make(quiSuisJeTex, 'about'),   // Avant
+            5: make(quiSuisJeTex, 'about'),   // Arrière
+        };
     }, [projetsTex, stackTex, quiSuisJeTex]);
 
     useFrame((_, delta) => {
@@ -198,16 +211,13 @@ function Cube({ progress, setActiveOverlay }) {
 
     const handleFaceClick = (e) => {
         e.stopPropagation();
-        const faceIndex = e.face.materialIndex;
-        if (!activeFaces.includes(faceIndex)) return;
-        if (faceIndex === 4) setActiveOverlay('about');
-        else if (faceIndex === 2) setActiveOverlay('projects');
-        else if (faceIndex === 3) setActiveOverlay('stack');
+        const face = faces[e.face?.materialIndex];
+        if (face) setActiveOverlay(face.overlay);
     };
 
     const handlePointerMove = (e) => {
         const faceIndex = e.face?.materialIndex;
-        const isActive = activeFaces.includes(faceIndex);
+        const isActive = faceIndex in faces;
         hovered.current = isActive ? faceIndex : null;
         document.body.style.cursor = isActive ? 'pointer' : 'default';
     }
@@ -228,15 +238,9 @@ function Cube({ progress, setActiveOverlay }) {
         >
             <boxGeometry args={[2.5, 2.5, 2.5]} />
 
-            {/* Faces avec couleurs blanches et matériaux pour les images */}
-            <meshStandardMaterial color="#fff" attach="material-0" />
-            <meshStandardMaterial color="#fff" attach="material-1" />
-
-            <meshBasicMaterial map={faces[2].texture} attach="material-2" toneMapped={false} /> {/* Haut */}
-            <meshBasicMaterial map={faces[3].texture} attach="material-3" toneMapped={false} /> {/* Bas */}
-            <meshBasicMaterial map={faces[4].texture} attach="material-4" toneMapped={false} /> {/* Avant */}
-
-            <meshStandardMaterial color="#fff" attach="material-5" />
+            {Object.entries(faces).map(([index, face]) => (
+                <meshBasicMaterial key={index} map={face.texture} attach={`material-${index}`} toneMapped={false} />
+            ))}
         </motion.mesh>
     )
 }
